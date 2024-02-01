@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myapp-rc
+  labels:
+    app: myapp
+    type: front-end
+
+spec:  ## for replication controller
+  template:
+
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:  ## for pod
+      containers:
+      - name: nginx-container
+        image: nginx 
+
+  replicas: 2
+  # selector:    ## optional in replication controller
+  #   matchlabels: ## way to match which pods to be monitored by RC
+  #     type: front-end ## match with rc label type  
+
+
+
+# kubectl apply -f rc-defination.yml
+
+# kubectl get replicationcontroller
+
+# kubectl get pods

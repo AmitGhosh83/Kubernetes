@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-rs
+  labels:
+    name: myapp
+    type: front-end
+
+spec:
+  ## This is the POD template that RS will spin up    
+  template:
+    metadata: 
+      name: myapp-pod
+      labels:
+        type: myapp
+        app: match-us  ## matchLabels matches this tag to ensure cluster state
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx  
+  replicas: 5
+  selector:
+    matchLabels:
+      app: match-us ## match with pod template
+      type: myapp
+
+## selector allows RS to manage PODS that were created before RS creation
+ 
+ ## create RS
+ ## kubectl apply -f rs-defination.yml
+ ## kubectl get myapp-rs
+ ## kubectl delete replicaset myapp-rs
+ ## kubectl replace -f replicaset rc-defination.yml
+ ### kubectl get pods frontend -o wide
+
+##SCALE
+
+## kubectl replace -f rs-defination.yml
+
+## kubectl scale --replicas=6 -f rs-defination.yml
+## kubectl scale --replicas=6 replicaset myapp-rs 
+
+## cat ls /root/replicaset-definition-1.yaml
+## vi ls /root/replicaset-definition-1.yaml
+
+## kubectl edit rs new-replica-set

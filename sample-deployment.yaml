@@ -1,0 +1,18 @@
+# Deployment for a POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod # string 
+  labels: # dictionary
+    app: myapp 
+    type: front-end
+
+spec:
+  containers: # List
+  - name: nginx  # 1st item in the list key: value
+    image: nginx 1.14.2
+    ports:
+    - containerPort: 80
+  
+
+
